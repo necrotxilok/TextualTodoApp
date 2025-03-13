@@ -3,6 +3,9 @@
 
 This is a simple TUI application to manage todo lists created with Textual.
 
+<img width="1262" alt="imagen" src="https://github.com/user-attachments/assets/7e61275d-c3df-4514-82a4-891380c84a2e" />
+
+
 The application allows you to create a list of tasks in JSON format in current
 directory. The JSON file will be created only when you add a new task.
 
@@ -17,7 +20,6 @@ Key Bindings:
  q           > Exit the application.
 
 
---------------------------------------------------------------------------------
 
 ## Dependencies
 
@@ -26,7 +28,6 @@ Key Bindings:
 - [PyInstaller](https://pyinstaller.org/en/stable/) (Optional)
 
 
---------------------------------------------------------------------------------
 
 ## Run the Application
 
@@ -40,11 +41,10 @@ pip install textual textual-dev
 Into the project folder you can run next command to run the project:
 
 ```bash
-python3 src/todo.py
+python src/todo.py
 ```
 
 
---------------------------------------------------------------------------------
 
 ## Run in Dev Mode
 
@@ -69,7 +69,6 @@ console.
 To detach the console use Ctrl+C.
 
 
---------------------------------------------------------------------------------
 
 ## Building the App
 
