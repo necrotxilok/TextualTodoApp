@@ -1,0 +1,37 @@
+
+# Windows
+Thumbs.db
+[Dd]esktop.ini
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Custom Ignored
+_*
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python C Extensions
+*.so
+
+# Python Distribution
+.Python
+build/
+dist/
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Log Files
+*.log
+
+# Todos JSON Data
+*.json
