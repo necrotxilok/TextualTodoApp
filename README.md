@@ -11,14 +11,15 @@ directory. The JSON file will be created only when you add a new task.
 
 
 Key Bindings:
-- a           > Add a new task.
-- Up/Down     > Select task in the list.
-- Space/Enter > Mark/Unmark task as completed.
-- e           > Edit the selected task.
-- r           > Remove the selected task.
-- ^p          > Textual Command Palette
-- q           > Exit the application.
-
+```
+ a           > Add a new task.
+ Up/Down     > Select task in the list.
+ Space/Enter > Mark/Unmark task as completed.
+ e           > Edit the selected task.
+ r           > Remove the selected task.
+ ^p          > Textual Command Palette
+ q           > Exit the application.
+```
 
 
 ## Dependencies
