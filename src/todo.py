@@ -12,7 +12,8 @@ class TodoApp(App):
 
 	items = []
 	highlighted = -1
-	editItem = None
+	editIndex = -1
+	newIndex = 1
 
 	CSS = """
 	Screen {
@@ -73,7 +74,8 @@ class TodoApp(App):
 		self.log(current)
 		self.log(current.selection_index)
 		self.highlighted = current.selection_index
-		#self.log(self.items[index])
+		#self.log(self.items)
+		#self.log(self.items[current.selection_index])
 
 	def on_selection_list_selection_toggled(self, current):
 		self.log('SelectionList Selection Toggle!!')
@@ -81,27 +83,29 @@ class TodoApp(App):
 		self.log(current.selection_index)
 		idx = current.selection_index
 		item = self.items[idx]
-		done = not item[2]
-		newItem = (item[0], idx, done)
+		done = not item[1]
+		newItem = (item[0], done)
 		self.items[idx] = newItem
 		self.save_data()
+		#self.log(self.items)
+		#self.log(self.items[current.selection_index])
 
 	def on_input_submitted(self, submitted):
 		self.log('Input Submitted!!')
 		self.log(submitted)
 		self.log(submitted.value)
 		if submitted.value:
-			if (self.editItem == None):
-				idx = len(self.items)
-				newItem = (submitted.value, idx, False)
+			if (self.editIndex == -1):
+				idx = self.newIndex
+				newItem = (submitted.value, False)
 				self.items.append(newItem)
+				self.newIndex += 1
 			else:
-				editItem = self.editItem
-				idx = editItem[1]
-				done = editItem[2]
-				newItem = (submitted.value, idx, done)
-				self.items[idx] = newItem
-		self.editItem = None
+				editItem = self.items[self.editIndex]
+				done = editItem[1]
+				newItem = (submitted.value, done)
+				self.items[self.editIndex] = newItem
+		self.editIndex = -1
 		inputTask = self.query_one("#inputTask")
 		inputTask.styles.display = 'none'
 		inputTask.clear()
@@ -127,8 +131,8 @@ class TodoApp(App):
 			#self.log(selectionList)
 			editItem = self.items[idx]
 			task = editItem[0]
-			done = editItem[2]
-			self.editItem = (task, idx, done)
+			done = editItem[1]
+			self.editIndex = idx
 			self.render_input(task)
 
 	def _action_remove_item(self):
@@ -156,14 +160,15 @@ class TodoApp(App):
 			data = json.load(file)
 		self.items = []
 		for i, item in enumerate(data):
-			self.items.append((item.get('task'), i, item.get('done')))
+			self.items.append((item.get('task'), item.get('done')))
+		self.newIndex = len(self.items)
 
 	def save_data(self):
 		data = []
 		for i, item in enumerate(self.items):
 			data.append({
 				"task": item[0],
-				"done": item[2]
+				"done": item[1]
 			})
 		with open('todo.json', 'w') as f:
 			json.dump(data, f)
@@ -172,7 +177,10 @@ class TodoApp(App):
 		selectionList = self.query_one("#todoList")
 		selectionList.disabled = False
 		selectionList.clear_options()
-		selectionList.add_options(self.items)
+		renderItems = []
+		for i, item in enumerate(self.items):
+			renderItems.append((item[0], i, item[1]))
+		selectionList.add_options(renderItems)
 		selectionList.focus()
 
 	def render_input(self, value):
